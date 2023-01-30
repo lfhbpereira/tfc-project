@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 describe('Test /login endpoint', () => {
   describe('If a user tries to log in', () => {
     context('with right credentials', () => {
-      it('should return a 200 response with a token', async () => {
+      it('should return the 200 status code with a token', async () => {
         sinon.stub(User, 'findOne').resolves(login as User);
 
         const { status, body } = await chai.request(app).post('/login').send(login);
