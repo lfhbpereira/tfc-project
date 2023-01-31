@@ -11,7 +11,7 @@ export default class ValidateUserLogin {
     next();
   }
 
-  static passwordValidation(req: Request, res: Response, next: NextFunction): Response | void {
+  static passwordFieldValidation(req: Request, res: Response, next: NextFunction): Response | void {
     const { password } = req.body;
 
     if (!password) {

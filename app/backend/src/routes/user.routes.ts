@@ -8,7 +8,7 @@ const userRouter = express.Router();
 userRouter.post(
   '/',
   ValidateUserLogin.emailFieldValidation,
-  ValidateUserLogin.passwordValidation,
+  ValidateUserLogin.passwordFieldValidation,
   UserController.login,
 );
 
