@@ -10,6 +10,10 @@ export default class UserService {
 
     const user = await UserModel.findOne({ where: { email } });
 
+    if (!user) {
+      return { type: 'Unauthorized', message: 'Incorrect email or password' };
+    }
+
     const newToken = token.create(user as IUserCredentials);
 
     return { type: null, message: newToken };
