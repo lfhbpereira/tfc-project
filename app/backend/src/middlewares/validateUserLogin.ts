@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 export default class ValidateUserLogin {
-  static emailValidation(req: Request, res: Response, next: NextFunction): Response | void {
+  static emailFieldValidation(req: Request, res: Response, next: NextFunction): Response | void {
     const { email } = req.body;
 
     if (!email) {
