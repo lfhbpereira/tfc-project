@@ -6,3 +6,7 @@ export const login = {
 export const loginWithoutEmail = {
   password: 'secret_admin',
 };
+
+export const loginWithoutPassword = {
+  email: 'admin@admin.com',
+};

@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { login, loginWithoutEmail } from '../tests/mocks/user.mock';
+import { login, loginWithoutEmail, loginWithoutPassword } from '../tests/mocks/user.mock';
 import User from '../database/models/user.model';
 
 const { expect } = chai;
@@ -32,6 +32,17 @@ describe('Test /login endpoint', () => {
         sinon.stub(User, 'findOne').resolves(loginWithoutEmail as User);
 
         const { status, body } = await chai.request(app).post('/login').send(loginWithoutEmail);
+
+        expect(status).to.equal(400);
+        expect(body.message).to.equal('All fields must be filled');
+      });
+    });
+
+    context('without entering a password', () => {
+      it('should return the 400 status code with an error message', async () => {
+        sinon.stub(User, 'findOne').resolves(loginWithoutPassword as User);
+
+        const { status, body } = await chai.request(app).post('/login').send(loginWithoutPassword);
 
         expect(status).to.equal(400);
         expect(body.message).to.equal('All fields must be filled');
