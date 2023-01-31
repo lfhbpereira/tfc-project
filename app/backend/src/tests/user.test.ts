@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { login, loginWithoutEmail, loginWithoutPassword } from '../tests/mocks/user.mock';
+import { login, loginInvalidEmail, loginWithoutEmail, loginWithoutPassword } from '../tests/mocks/user.mock';
 import User from '../database/models/user.model';
 
 const { expect } = chai;
@@ -46,6 +46,17 @@ describe('Test /login endpoint', () => {
 
         expect(status).to.equal(400);
         expect(body.message).to.equal('All fields must be filled');
+      });
+    });
+
+    context('with an invalid email', () => {
+      it('should return the 401 status code with an error message', async () => {
+        sinon.stub(User, 'findOne').resolves(null);
+
+        const { status, body } = await chai.request(app).post('/login').send(loginInvalidEmail);
+
+        expect(status).to.equal(401);
+        expect(body.message).to.equal('Incorrect email or password');
       });
     });
   });

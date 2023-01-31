@@ -10,3 +10,8 @@ export const loginWithoutEmail = {
 export const loginWithoutPassword = {
   email: 'admin@admin.com',
 };
+
+export const loginInvalidEmail = {
+  email: 'adminn@admin.com',
+  password: 'secret_admin',
+};
