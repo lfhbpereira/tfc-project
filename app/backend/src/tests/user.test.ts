@@ -5,7 +5,12 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { login, loginInvalidEmail, loginWithoutEmail, loginWithoutPassword } from '../tests/mocks/user.mock';
+import { login,
+  loginInvalidEmail,
+  loginWithoutEmail,
+  loginWithoutPassword,
+  passcode,
+} from '../tests/mocks/user.mock';
 import User from '../database/models/user.model';
 
 const { expect } = chai;
@@ -18,7 +23,7 @@ describe('Test /login endpoint', () => {
   describe('If a user tries to log in', () => {
     context('with right credentials', () => {
       it('should return the 200 status code with a token', async () => {
-        sinon.stub(User, 'findOne').resolves(login as User);
+        sinon.stub(User, 'findOne').resolves(passcode as User);
 
         const { status, body } = await chai.request(app).post('/login').send(login);
 
