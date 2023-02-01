@@ -20,3 +20,8 @@ export const loginInvalidEmail = {
   email: 'adminn@admin.com',
   password: 'secret_admin',
 };
+
+export const loginInvalidPassword = {
+  email: 'admin@admin.com',
+  password: 'secret_adminn',
+};

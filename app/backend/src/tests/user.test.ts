@@ -7,6 +7,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { login,
   loginInvalidEmail,
+  loginInvalidPassword,
   loginWithoutEmail,
   loginWithoutPassword,
   passcode,
@@ -59,6 +60,17 @@ describe('Test /login endpoint', () => {
         sinon.stub(User, 'findOne').resolves(null);
 
         const { status, body } = await chai.request(app).post('/login').send(loginInvalidEmail);
+
+        expect(status).to.equal(401);
+        expect(body.message).to.equal('Incorrect email or password');
+      });
+    });
+
+    context('with an invalid password', () => {
+      it('should return the 401 status code with an error message', async () => {
+        sinon.stub(User, 'findOne').resolves(null);
+
+        const { status, body } = await chai.request(app).post('/login').send(loginInvalidPassword);
 
         expect(status).to.equal(401);
         expect(body.message).to.equal('Incorrect email or password');
