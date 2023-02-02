@@ -12,7 +12,7 @@ import { login,
   loginWithoutPassword,
   passcode,
 } from '../tests/mocks/user.mock';
-import User from '../database/models/user.model';
+import UserModel from '../database/models/user.model';
 
 const { expect } = chai;
 
@@ -24,7 +24,7 @@ describe('Test /login endpoint', () => {
   describe('If a user tries to log in', () => {
     context('with right credentials', () => {
       it('should return the 200 status code with a token', async () => {
-        sinon.stub(User, 'findOne').resolves(passcode as User);
+        sinon.stub(UserModel, 'findOne').resolves(passcode as UserModel);
 
         const { status, body } = await chai.request(app).post('/login').send(login);
 
@@ -35,7 +35,7 @@ describe('Test /login endpoint', () => {
 
     context('without providing email', () => {
       it('should return the 400 status code with an error message', async () => {
-        sinon.stub(User, 'findOne').resolves(loginWithoutEmail as User);
+        sinon.stub(UserModel, 'findOne').resolves(loginWithoutEmail as UserModel);
 
         const { status, body } = await chai.request(app).post('/login').send(loginWithoutEmail);
 
@@ -46,7 +46,7 @@ describe('Test /login endpoint', () => {
 
     context('without entering a password', () => {
       it('should return the 400 status code with an error message', async () => {
-        sinon.stub(User, 'findOne').resolves(loginWithoutPassword as User);
+        sinon.stub(UserModel, 'findOne').resolves(loginWithoutPassword as UserModel);
 
         const { status, body } = await chai.request(app).post('/login').send(loginWithoutPassword);
 
@@ -57,7 +57,7 @@ describe('Test /login endpoint', () => {
 
     context('with an invalid email', () => {
       it('should return the 401 status code with an error message', async () => {
-        sinon.stub(User, 'findOne').resolves(null);
+        sinon.stub(UserModel, 'findOne').resolves(null);
 
         const { status, body } = await chai.request(app).post('/login').send(loginInvalidEmail);
 
@@ -68,7 +68,7 @@ describe('Test /login endpoint', () => {
 
     context('with an invalid password', () => {
       it('should return the 401 status code with an error message', async () => {
-        sinon.stub(User, 'findOne').resolves(null);
+        sinon.stub(UserModel, 'findOne').resolves(null);
 
         const { status, body } = await chai.request(app).post('/login').send(loginInvalidPassword);
 
