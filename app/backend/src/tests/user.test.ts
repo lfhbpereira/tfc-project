@@ -57,8 +57,6 @@ describe('Test /login endpoint', () => {
 
     context('with an invalid email', () => {
       it('should return the 401 status code with an error message', async () => {
-        sinon.stub(UserModel, 'findOne').resolves(null);
-
         const { status, body } = await chai.request(app).post('/login').send(loginInvalidEmail);
 
         expect(status).to.equal(401);
@@ -68,8 +66,6 @@ describe('Test /login endpoint', () => {
 
     context('with an invalid password', () => {
       it('should return the 401 status code with an error message', async () => {
-        sinon.stub(UserModel, 'findOne').resolves(null);
-
         const { status, body } = await chai.request(app).post('/login').send(loginInvalidPassword);
 
         expect(status).to.equal(401);
