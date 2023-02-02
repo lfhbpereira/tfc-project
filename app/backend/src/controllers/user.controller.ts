@@ -14,4 +14,10 @@ export default class UserController {
 
     return res.status(200).json({ token: message });
   }
+
+  static validate(req: Request, res: Response) {
+    const { user: { dataValues: { role } } } = req.body;
+
+    return res.status(200).json({ role });
+  }
 }
