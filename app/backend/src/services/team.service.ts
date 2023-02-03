@@ -7,7 +7,7 @@ export default class TeamService {
     return { message: teams };
   }
 
-  static async getTeamById(id: number) {
+  static async getById(id: number) {
     const team = await TeamModel.findByPk(id);
 
     return { message: team };
