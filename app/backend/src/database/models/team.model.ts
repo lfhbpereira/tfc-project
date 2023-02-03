@@ -1,4 +1,5 @@
 import { INTEGER, Model, STRING } from 'sequelize';
+
 import db from '.';
 
 export default class Team extends Model {
