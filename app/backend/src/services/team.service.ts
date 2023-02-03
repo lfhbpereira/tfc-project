@@ -6,4 +6,10 @@ export default class TeamService {
 
     return { message: teams };
   }
+
+  static async getTeamById(id: number) {
+    const team = await TeamModel.findByPk(id);
+
+    return { message: team };
+  }
 }
