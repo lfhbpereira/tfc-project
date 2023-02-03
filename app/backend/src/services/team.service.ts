@@ -1,7 +1,7 @@
 import TeamModel from '../database/models/team.model';
 
 export default class TeamService {
-  static async getAllTeams() {
+  static async getAll() {
     const teams = await TeamModel.findAll();
 
     return { message: teams };
