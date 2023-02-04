@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { teams } from './mocks/team.mock';
+import { team, teams } from './mocks/team.mock';
 import TeamModel from '../database/models/team.model';
 
 const { expect } = chai;
@@ -21,6 +21,19 @@ describe('Test /teams endpoint', () => {
 
       expect(status).to.equal(200);
       expect(body).to.deep.equal(teams);
+    });
+  });
+});
+
+describe('Test /teams/:id endpoint', () => {
+  describe('When searching for a team by id', () => {
+    it('should return the 200 status code with the searched team', async () => {
+      sinon.stub(TeamModel, 'findByPk').resolves(team as TeamModel);
+
+      const { status, body } = await chai.request(app).get('/teams/1');
+
+      expect(status).to.equal(200);
+      expect(body).to.deep.equal(team);
     });
   });
 });
