@@ -3,13 +3,13 @@ import Team from '../database/models/team.model';
 
 export default class MatchService {
   static async getAll() {
-    const teams = await MatchModel.findAll({
+    const matches = await MatchModel.findAll({
       include: [
         { model: Team, as: 'homeTeam', attributes: ['teamName'] },
         { model: Team, as: 'awayTeam', attributes: ['teamName'] },
       ],
     });
 
-    return { message: teams };
+    return { message: matches };
   }
 }
