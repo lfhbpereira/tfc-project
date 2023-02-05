@@ -14,7 +14,7 @@ export default class MatchService {
   }
 
   static async getByQuery(query: string) {
-    const inProgress = query;
+    const inProgress = query === 'true';
 
     const matches = await MatchModel.findAll({ where: { inProgress },
       include: [
