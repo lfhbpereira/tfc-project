@@ -1,3 +1,4 @@
+import HttpException from '../utils/httpException';
 import ITeamRepository from '../repositories/team.repository';
 import ITeamService from './interfaces/ITeamService';
 import TeamModel from '../database/models/team.model';
@@ -13,6 +14,10 @@ export default class TeamService implements ITeamService {
 
   public async getById(id: number): Promise<TeamModel | null> {
     const team = await this._teamRepository.getById(id);
+
+    if (!team) {
+      throw new HttpException(404, 'Team not found');
+    }
 
     return team;
   }
