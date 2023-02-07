@@ -1,24 +1,25 @@
-import * as express from 'express';
+import { Router } from 'express';
 
-import Token from '../auth/token';
 import UserController from '../controllers/user.controller';
-import ValidateUserLogin from '../middlewares/validateUserLogin';
+import UserModel from '../database/models/user.model';
+import UserRepository from '../repositories/user.repository';
+import UserService from '../services/user.service';
+import ValidateUser from '../middlewares/validateUser';
 
-const userRouter = express.Router();
+export default class UserRouter {
+  public router: Router;
+  private _userRepository: UserRepository;
+  private _userService: UserService;
+  private _userController: UserController;
 
-const token = new Token();
+  constructor() {
+    this.router = Router();
+    this._userRepository = new UserRepository(UserModel);
+    this._userService = new UserService(this._userRepository);
+    this._userController = new UserController(this._userService);
 
-userRouter.post(
-  '/',
-  ValidateUserLogin.emailFieldValidation,
-  ValidateUserLogin.passwordFieldValidation,
-  UserController.login,
-);
+    this.router.post('/', ValidateUser.login, this._userController.login);
 
-userRouter.get(
-  '/validate',
-  (req, res, next) => token.validate(req, res, next),
-  UserController.validate,
-);
-
-export default userRouter;
+    this.router.get('/validate', ValidateUser.token, this._userController.validate);
+  }
+}

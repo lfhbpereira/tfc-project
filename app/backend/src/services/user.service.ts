@@ -1,29 +1,37 @@
 import * as bcrypt from 'bcryptjs';
 
-import { IUserCredentials } from '../interfaces/IUser';
+import HttpException from '../utils/httpException';
+import IUserRepository from '../repositories/interfaces/IUserRepository';
+import IUserService from './interfaces/IUserService';
 import Token from '../auth/token';
 import UserModel from '../database/models/user.model';
 
-const token = new Token();
+export default class UserService implements IUserService {
+  constructor(private userRepository: IUserRepository) {}
 
-export default class UserService {
-  static async login(login: IUserCredentials) {
-    const { email, password } = login;
-
-    const user = await UserModel.findOne({ where: { email } });
+  public async login(email: string, password: string): Promise<string | null> {
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      return { type: 'Unauthorized', message: 'Incorrect email or password' };
+      throw new HttpException(401, 'Incorrect email or password');
     }
 
     const passcode = bcrypt.compareSync(password, user.password);
 
     if (!passcode) {
-      return { type: 'Unauthorized', message: 'Incorrect email or password' };
+      throw new HttpException(401, 'Incorrect email or password');
     }
 
-    const newToken = token.create(user as IUserCredentials);
+    const { password: _, ...data } = user;
+    const token = Token.create(data.dataValues);
 
-    return { type: null, message: newToken };
+    return token;
+  }
+
+  public async validate(id: number): Promise<string> {
+    const user = await this.userRepository.findById(id);
+    const { role } = user as UserModel;
+
+    return role;
   }
 }
