@@ -1,22 +1,27 @@
 import { NextFunction, Request, Response } from 'express';
 
-export default class ValidateUserLogin {
-  static emailFieldValidation(req: Request, res: Response, next: NextFunction): Response | void {
-    const { email } = req.body;
+import HttpException from '../utils/httpException';
+import Token from '../auth/token';
 
-    if (!email) {
-      return res.status(400).json({ message: 'All fields must be filled' });
+export default class ValidateUser {
+  static login(req: Request, _res: Response, next: NextFunction): Response | void {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      throw new HttpException(400, 'All fields must be filled');
     }
 
     next();
   }
 
-  static passwordFieldValidation(req: Request, res: Response, next: NextFunction): Response | void {
-    const { password } = req.body;
+  static token(req: Request, _res: Response, next: NextFunction): Response | void {
+    const { authorization: token } = req.headers;
 
-    if (!password) {
-      return res.status(400).json({ message: 'All fields must be filled' });
+    if (!token) {
+      throw new HttpException(401, 'Token not found');
     }
+
+    req.body.user = Token.verify(token);
 
     next();
   }
