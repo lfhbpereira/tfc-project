@@ -1,10 +1,23 @@
-import * as express from 'express';
+import { Router } from 'express';
 
 import TeamController from '../controllers/team.controller';
+import TeamModel from '../database/models/team.model';
+import TeamRepository from '../repositories/team.repository';
+import TeamService from '../services/team.service';
 
-const teamRouter = express.Router();
+export default class TeamRouter {
+  public router: Router;
+  private _teamRepository: TeamRepository;
+  private _teamService: TeamService;
+  private _teamController: TeamController;
 
-teamRouter.get('/', TeamController.getAll);
-teamRouter.get('/:id', TeamController.getById);
+  constructor() {
+    this.router = Router();
+    this._teamRepository = new TeamRepository(TeamModel);
+    this._teamService = new TeamService(this._teamRepository);
+    this._teamController = new TeamController(this._teamService);
 
-export default teamRouter;
+    this.router.get('/', this._teamController.getAll);
+    this.router.get('/:id', this._teamController.getById);
+  }
+}

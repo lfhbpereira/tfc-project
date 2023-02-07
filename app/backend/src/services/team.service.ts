@@ -1,15 +1,19 @@
+import ITeamRepository from '../repositories/team.repository';
+import ITeamService from './interfaces/ITeamService';
 import TeamModel from '../database/models/team.model';
 
-export default class TeamService {
-  static async getAll() {
-    const teams = await TeamModel.findAll();
+export default class TeamService implements ITeamService {
+  constructor(private _teamRepository: ITeamRepository) {}
 
-    return { message: teams };
+  public async getAll(): Promise<TeamModel[]> {
+    const teams = await this._teamRepository.getAll();
+
+    return teams;
   }
 
-  static async getById(id: number) {
-    const team = await TeamModel.findByPk(id);
+  public async getById(id: number): Promise<TeamModel | null> {
+    const team = await this._teamRepository.getById(id);
 
-    return { message: team };
+    return team;
   }
 }
