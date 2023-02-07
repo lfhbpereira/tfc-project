@@ -1,5 +1,7 @@
 import * as express from 'express';
+import 'express-async-errors';
 
+import HandleError from './middlewares/handleError';
 import Route from './routers';
 
 class App {
@@ -11,6 +13,8 @@ class App {
     this.config();
 
     this.app.get('/', (_req, res) => res.json({ ok: true }));
+
+    this.app.use(HandleError.err);
   }
 
   private config(): void {
