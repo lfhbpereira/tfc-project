@@ -7,10 +7,10 @@ import Token from '../auth/token';
 import UserModel from '../database/models/user.model';
 
 export default class UserService implements IUserService {
-  constructor(private userRepository: IUserRepository) {}
+  constructor(private _userRepository: IUserRepository) {}
 
   public async login(email: string, password: string): Promise<string | null> {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this._userRepository.findByEmail(email);
 
     if (!user) {
       throw new HttpException(401, 'Incorrect email or password');
@@ -29,7 +29,7 @@ export default class UserService implements IUserService {
   }
 
   public async validate(id: number): Promise<string> {
-    const user = await this.userRepository.findById(id);
+    const user = await this._userRepository.findById(id);
     const { role } = user as UserModel;
 
     return role;
