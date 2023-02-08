@@ -1,23 +1,25 @@
 import { Request, Response } from 'express';
 
-import MatchService from '../services/match.service';
+import IMatchController from './interfaces/IMatchController';
+import IMatchService from '../services/interfaces/IMatchService';
 
-export default class MatchController {
-  static async getAll(req: Request, res: Response) {
+export default class MatchController implements IMatchController {
+  constructor(private _matchService: IMatchService) {}
+
+  public getAll = async (req: Request, res: Response): Promise<Response> => {
     if (req.query.inProgress) {
-      return MatchController.getByQuery(req, res);
+      return this.getByQuery(req, res);
     }
 
-    const { message } = await MatchService.getAll();
+    const matches = await this._matchService.getAll();
 
-    return res.status(200).json(message);
-  }
+    return res.status(200).json(matches);
+  };
 
-  static async getByQuery(req: Request, res: Response) {
-    const { inProgress } = req.query;
+  public getByQuery = async (req: Request, res: Response): Promise<Response> => {
+    const inProg = req.query.inProgress === 'true';
+    const matches = await this._matchService.getByQuery(inProg);
 
-    const { message } = await MatchService.getByQuery(inProgress as string);
-
-    return res.status(200).json(message);
-  }
+    return res.status(200).json(matches);
+  };
 }

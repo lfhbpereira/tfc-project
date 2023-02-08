@@ -1,28 +1,19 @@
-import MatchModel from '../database/models/match.model';
-import Team from '../database/models/team.model';
+import IMatch from '../interfaces/IMatch';
+import IMatchRepository from '../repositories/interfaces/IMatchRepository';
+import IMatchService from './interfaces/IMatchService';
 
-export default class MatchService {
-  static async getAll() {
-    const matches = await MatchModel.findAll({
-      include: [
-        { model: Team, as: 'homeTeam', attributes: { exclude: ['id'] } },
-        { model: Team, as: 'awayTeam', attributes: { exclude: ['id'] } },
-      ],
-    });
+export default class MatchService implements IMatchService {
+  constructor(private _matchRepository: IMatchRepository) {}
 
-    return { message: matches };
+  public async getAll(): Promise<IMatch[]> {
+    const matches = await this._matchRepository.getAll();
+
+    return matches;
   }
 
-  static async getByQuery(query: string) {
-    const inProgress = query === 'true';
+  public async getByQuery(inProgress: boolean): Promise<IMatch[]> {
+    const matches = await this._matchRepository.getByQuery(inProgress);
 
-    const matches = await MatchModel.findAll({ where: { inProgress },
-      include: [
-        { model: Team, as: 'homeTeam', attributes: { exclude: ['id'] } },
-        { model: Team, as: 'awayTeam', attributes: { exclude: ['id'] } },
-      ],
-    });
-
-    return { message: matches };
+    return matches;
   }
 }
