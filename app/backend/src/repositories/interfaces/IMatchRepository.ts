@@ -1,6 +1,6 @@
-import IMatch from '../../interfaces/IMatch';
+import IMatches from '../../interfaces/IMatch';
 
 export default interface IMatchRepository {
-  getAll(): Promise<IMatch[]>;
-  getByQuery(inProgress: boolean): Promise<IMatch[]>;
+  getAll(): Promise<IMatches[]>;
+  getByQuery(inProgress: boolean): Promise<IMatches[]>;
 }
