@@ -1,4 +1,4 @@
-export default interface IMatches {
+export interface IMatches {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
@@ -12,3 +12,10 @@ export default interface IMatches {
     teamName: string;
   }
 }
+
+export type NewMatch = {
+  homeTeamId: number;
+  awayTeamId: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+};
