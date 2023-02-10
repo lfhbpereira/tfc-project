@@ -1,4 +1,4 @@
-import { IMatches } from '../interfaces/IMatch';
+import { IMatches, NewMatch } from '../interfaces/IMatch';
 import IMatchRepository from './interfaces/IMatchRepository';
 import MatchModel from '../database/models/match.model';
 
@@ -25,5 +25,11 @@ export default class MatchRepository implements IMatchRepository {
     });
 
     return matches as unknown as IMatches[];
+  }
+
+  public async create(match: NewMatch): Promise<MatchModel> {
+    const newMatch = await this._matchModel.create(match);
+
+    return newMatch;
   }
 }
