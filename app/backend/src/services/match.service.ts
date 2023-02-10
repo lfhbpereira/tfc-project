@@ -1,9 +1,11 @@
-import { IMatches } from '../interfaces/IMatch';
+import { IMatches, NewMatch } from '../interfaces/IMatch';
 import IMatchRepository from '../repositories/interfaces/IMatchRepository';
 import IMatchService from './interfaces/IMatchService';
+import ITeamService from './interfaces/ITeamService';
+import MatchModel from '../database/models/match.model';
 
 export default class MatchService implements IMatchService {
-  constructor(private _matchRepository: IMatchRepository) {}
+  constructor(private _matchRepository: IMatchRepository, private _teamService: ITeamService) {}
 
   public async getAll(): Promise<IMatches[]> {
     const matches = await this._matchRepository.getAll();
@@ -15,5 +17,15 @@ export default class MatchService implements IMatchService {
     const matches = await this._matchRepository.getByQuery(inProgress);
 
     return matches;
+  }
+
+  public async create(match: NewMatch): Promise<MatchModel> {
+    const { homeTeamId, awayTeamId } = match;
+
+    await Promise.all([homeTeamId, awayTeamId].map((id) => this._teamService.getById(id)));
+
+    const newMatch = await this._matchRepository.create(match);
+
+    return newMatch;
   }
 }
