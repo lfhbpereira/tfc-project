@@ -22,4 +22,13 @@ export default class MatchController implements IMatchController {
 
     return res.status(200).json(matches);
   };
+
+  public create = async (req: Request, res: Response): Promise<Response> => {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const newMatch = await this._matchService.create({
+      homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals,
+    });
+
+    return res.status(201).json(newMatch);
+  };
 }
