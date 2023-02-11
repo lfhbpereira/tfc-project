@@ -80,7 +80,7 @@ describe('Test /login/validate endpoint', () => {
     it('should return the 200 status code with the user role', async () => {
       const { body: { token } } = await chai.request(app).post('/login').send(login);
 
-      const { status, body } = await chai.request(app).get('/login/validate').set({ authorization: token });;
+      const { status, body } = await chai.request(app).get('/login/validate').set({ authorization: token });
 
       expect(status).to.equal(200);
       expect(body).to.deep.equal({ role: 'admin' });
