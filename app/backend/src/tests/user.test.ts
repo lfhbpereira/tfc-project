@@ -32,7 +32,7 @@ describe('Test /login endpoint', () => {
         const { status, body } = await chai.request(app).post('/login').send(login);
 
         expect(status).to.equal(200);
-        expect(body).to.haveOwnProperty('token');
+        expect(body).to.have.property('token');
       });
     });
 
