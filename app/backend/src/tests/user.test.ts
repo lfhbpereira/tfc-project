@@ -10,8 +10,9 @@ import { login,
   loginInvalidPassword,
   loginWithoutEmail,
   loginWithoutPassword,
-  passcode,
+  user,
 } from '../tests/mocks/user.mock';
+import Token from '../auth/token';
 import UserModel from '../database/models/user.model';
 
 const { expect } = chai;
@@ -24,7 +25,8 @@ describe('Test /login endpoint', () => {
   describe('If a user tries to log in', () => {
     context('with right credentials', () => {
       it('should return the 200 status code with a token', async () => {
-        sinon.stub(UserModel, 'findOne').resolves(passcode as UserModel);
+        sinon.stub(UserModel, 'findOne').resolves(user as UserModel);
+        sinon.stub(Token, 'create').returns('token');
 
         const { status, body } = await chai.request(app).post('/login').send(login);
 
