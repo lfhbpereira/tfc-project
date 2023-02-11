@@ -23,7 +23,7 @@ describe('Test /matches endpoint', () => {
       const { status, body } = await chai.request(app).get('/matches');
 
       expect(status).to.equal(200);
-      expect(body[0]).to.have.property('id');
+      expect(body[0]).to.have.property('inProgress');
     });
   });
 
