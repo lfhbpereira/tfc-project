@@ -216,3 +216,10 @@ export const finishedMatches = [
     },
   },
 ];
+
+export const newMatch = {
+  homeTeamId: 16,
+  awayTeamId: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
