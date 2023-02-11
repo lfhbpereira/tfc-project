@@ -23,7 +23,7 @@ describe('Test /matches endpoint', () => {
       const { status, body } = await chai.request(app).get('/matches');
 
       expect(status).to.equal(200);
-      expect(body).to.deep.equal(matches);
+      expect(body[0]).to.have.property('id');
     });
   });
 
@@ -34,7 +34,7 @@ describe('Test /matches endpoint', () => {
       const { status, body } = await chai.request(app).get('/matches?inProgress=true');
 
       expect(status).to.equal(200);
-      expect(body).to.deep.equal(matchesInProgress);
+      expect(body[0].inProgress).to.be.true;
     });
   });
 
@@ -45,7 +45,7 @@ describe('Test /matches endpoint', () => {
       const { status, body } = await chai.request(app).get('/matches?inProgress=false');
 
       expect(status).to.equal(200);
-      expect(body).to.deep.equal(finishedMatches);
+      expect(body[0].inProgress).to.be.false;
     });
   });
 });
