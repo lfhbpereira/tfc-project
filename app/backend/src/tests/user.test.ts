@@ -35,8 +35,6 @@ describe('Test /login endpoint', () => {
 
     context('without providing email', () => {
       it('should return the 400 status code with an error message', async () => {
-        sinon.stub(UserModel, 'findOne').resolves(loginWithoutEmail as UserModel);
-
         const { status, body } = await chai.request(app).post('/login').send(loginWithoutEmail);
 
         expect(status).to.equal(400);
@@ -46,8 +44,6 @@ describe('Test /login endpoint', () => {
 
     context('without entering a password', () => {
       it('should return the 400 status code with an error message', async () => {
-        sinon.stub(UserModel, 'findOne').resolves(loginWithoutPassword as UserModel);
-
         const { status, body } = await chai.request(app).post('/login').send(loginWithoutPassword);
 
         expect(status).to.equal(400);
