@@ -6,6 +6,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import { finishedMatches, matches, matchesInProgress } from './mocks/match.mock';
+import { IMatches } from '../interfaces/IMatch';
 import MatchModel from '../database/models/match.model';
 
 const { expect } = chai;
@@ -17,7 +18,7 @@ describe('Test /matches endpoint', () => {
 
   describe('When searching for all matches', () => {
     it('should return the 200 status code with all matches', async () => {
-      sinon.stub(MatchModel, 'findAll').resolves(matches as unknown as MatchModel[]);
+      sinon.stub(MatchModel, 'findAll').resolves(matches as IMatches[]);
 
       const { status, body } = await chai.request(app).get('/matches');
 
@@ -28,7 +29,7 @@ describe('Test /matches endpoint', () => {
 
   describe('When searching for matches in progress', () => {
     it('should return the 200 status code with the matches in progress', async () => {
-      sinon.stub(MatchModel, 'findAll').resolves(matchesInProgress as unknown as MatchModel[]);
+      sinon.stub(MatchModel, 'findAll').resolves(matchesInProgress as IMatches[]);
 
       const { status, body } = await chai.request(app).get('/matches?inProgress=true');
 
@@ -39,7 +40,7 @@ describe('Test /matches endpoint', () => {
 
   describe('When searching for finished matches', () => {
     it('should return the 200 status code with the finished matches', async () => {
-      sinon.stub(MatchModel, 'findAll').resolves(finishedMatches as unknown as MatchModel[]);
+      sinon.stub(MatchModel, 'findAll').resolves(finishedMatches as IMatches[]);
 
       const { status, body } = await chai.request(app).get('/matches?inProgress=false');
 
