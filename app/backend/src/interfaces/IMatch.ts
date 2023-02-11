@@ -1,4 +1,6 @@
-export interface IMatches {
+import MatchModel from '../database/models/match.model';
+
+export interface IMatches extends MatchModel {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
