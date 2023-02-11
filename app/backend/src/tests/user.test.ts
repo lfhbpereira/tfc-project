@@ -5,7 +5,8 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import { login,
+import {
+  login,
   loginInvalidEmail,
   loginInvalidPassword,
   loginWithoutEmail,
