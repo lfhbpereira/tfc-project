@@ -32,5 +32,6 @@ export default class MatchRouter {
     this.router.post('/', ValidateUser.token, ValidateMatch.teams, this._matchController.create);
 
     this.router.patch('/:id/finish', this._matchController.updateStatus);
+    this.router.patch('/:id', this._matchController.updateScore);
   }
 }
