@@ -7,6 +7,7 @@ import MatchService from '../services/match.service';
 import TeamModel from '../database/models/team.model';
 import TeamRepository from '../repositories/team.repository';
 import TeamService from '../services/team.service';
+import ValidateMatch from '../middlewares/validateMatch';
 import ValidateUser from '../middlewares/validateUser';
 
 export default class MatchRouter {
@@ -28,7 +29,7 @@ export default class MatchRouter {
     this.router.get('/', this._matchController.getAll);
     this.router.get('/?', this._matchController.getByQuery);
 
-    this.router.post('/', ValidateUser.token, this._matchController.create);
+    this.router.post('/', ValidateUser.token, ValidateMatch.teams, this._matchController.create);
 
     this.router.patch('/:id/finish', this._matchController.updateStatus);
   }
