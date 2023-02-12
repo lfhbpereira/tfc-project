@@ -5,4 +5,5 @@ export default interface IMatchRepository {
   getAll(): Promise<IMatches[]>;
   getByQuery(inProgress: boolean): Promise<IMatches[]>;
   create(match: NewMatch): Promise<MatchModel>;
+  updateStatus(id: number): Promise<void>;
 }
