@@ -16,7 +16,7 @@ export default class TeamService implements ITeamService {
     const team = await this._teamRepository.getById(id);
 
     if (!team) {
-      throw new HttpException(404, 'Team not found');
+      throw new HttpException(404, 'There is no team with such id!');
     }
 
     return team;
