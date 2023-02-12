@@ -232,3 +232,10 @@ export const newMatchResponse = {
   awayTeamGoals: 2,
   inProgress: true,
 };
+
+export const newMatchEqualTeams = {
+  homeTeamId: 16,
+  awayTeamId: 16,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
