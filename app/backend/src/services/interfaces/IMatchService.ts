@@ -6,4 +6,5 @@ export default interface IMatchService {
   getByQuery(inProgress: boolean): Promise<IMatches[]>;
   create(match: NewMatch): Promise<MatchModel>;
   updateStatus(id: number): Promise<void>;
+  updateScore(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void>;
 }

@@ -32,4 +32,9 @@ export default class MatchService implements IMatchService {
   public async updateStatus(id: number): Promise<void> {
     await this._matchRepository.updateStatus(id);
   }
+
+  public async updateScore(id: number, homeTeamGoals: number, awayTeamGoals: number)
+    : Promise<void> {
+    await this._matchRepository.updateScore(id, homeTeamGoals, awayTeamGoals);
+  }
 }
