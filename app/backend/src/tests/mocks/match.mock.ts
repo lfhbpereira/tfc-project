@@ -239,3 +239,10 @@ export const newMatchEqualTeams = {
   homeTeamGoals: 2,
   awayTeamGoals: 2,
 };
+
+export const newMatchTeamDoesNotExist = {
+  homeTeamId: 16,
+  awayTeamId: 17,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
