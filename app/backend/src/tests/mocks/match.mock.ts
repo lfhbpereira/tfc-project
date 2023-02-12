@@ -248,3 +248,8 @@ export const newMatchTeamDoesNotExist = {
 };
 
 export const invalidToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicGFzc3dvcmQiOiIkMmEkMDgkeGkuSHhrMWN6QU8wblpSLi5CMzkzdTEwYUVEMFJRMU4zUEFFWFE3SHh0TGpLUEVaQnUuUFciLCJpYXQiOjE2NzYxNjAyNTIsImV4cCI6MTY3NjE2Mzg1Mn0.RDoV4aQIIKJLBCtkXnNu4fMbInEwxufDu8bhmQfo1PY';
+
+export const updatedScoreboard = {
+  homeTeamGoals: 3,
+  awayTeamGoals: 1,
+};
