@@ -36,4 +36,9 @@ export default class MatchRepository implements IMatchRepository {
   public async updateStatus(id: number): Promise<void> {
     await this._matchModel.update({ inProgress: false }, { where: { id } });
   }
+
+  public async updateScore(id: number, homeTeamGoals: number, awayTeamGoals: number)
+    : Promise<void> {
+    await this._matchModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
 }
