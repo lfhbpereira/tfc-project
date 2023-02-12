@@ -29,5 +29,7 @@ export default class MatchRouter {
     this.router.get('/?', this._matchController.getByQuery);
 
     this.router.post('/', ValidateUser.token, this._matchController.create);
+
+    this.router.patch('/:id/finish', this._matchController.updateStatus);
   }
 }
