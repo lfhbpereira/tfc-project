@@ -5,4 +5,5 @@ export default interface IMatchController {
   getByQuery(req: Request, res: Response): Promise<Response>;
   create(req: Request, res: Response): Promise<Response>;
   updateStatus(req: Request, res: Response): Promise<Response>;
+  updateScore(req: Request, res: Response): Promise<Response>;
 }
