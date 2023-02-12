@@ -28,4 +28,8 @@ export default class MatchService implements IMatchService {
 
     return newMatch;
   }
+
+  public async updateStatus(id: number): Promise<void> {
+    await this._matchRepository.updateStatus(id);
+  }
 }
