@@ -1,6 +1,6 @@
 import { QueryTypes } from 'sequelize';
 
-import { awayTeams, homeTeams } from '../utils/queries';
+import { allTeams, awayTeams, homeTeams } from '../utils/queries';
 import ILeaderboard from '../interfaces/ILeaderboard';
 import ILeaderboardRepository from './interfaces/ILeaderboardRepository';
 import sequelize from '../database/models';
@@ -18,5 +18,11 @@ export default class LeaderboardRepository implements ILeaderboardRepository {
     const awayTeamLeaderboard = await this._sequelize.query(awayTeams, { type: QueryTypes.SELECT });
 
     return awayTeamLeaderboard as ILeaderboard[];
+  }
+
+  public async getAllTeamsLeaderboard(): Promise<ILeaderboard[]> {
+    const allTeamsLeaderboard = await this._sequelize.query(allTeams, { type: QueryTypes.SELECT });
+
+    return allTeamsLeaderboard as ILeaderboard[];
   }
 }
