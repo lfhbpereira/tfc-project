@@ -10,4 +10,10 @@ export default class LeaderboardService implements ILeaderboardService {
 
     return homeTeamLeaderboard;
   }
+
+  public async getAwayTeamLeaderboard(): Promise<ILeaderboard[]> {
+    const awayTeamLeaderboard = await this._leaderboardRepository.getAwayTeamLeaderboard();
+
+    return awayTeamLeaderboard;
+  }
 }
