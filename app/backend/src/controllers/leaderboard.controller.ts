@@ -17,4 +17,10 @@ export default class LeaderboardController implements ILeaderboardController {
 
     return res.status(200).json(awayTeamLeaderboard);
   };
+
+  public getAllTeamsLeaderboard = async (_req: Request, res: Response): Promise<Response> => {
+    const allTeamsLeaderboard = await this._leaderboardService.getAllTeamsLeaderboard();
+
+    return res.status(200).json(allTeamsLeaderboard);
+  };
 }
