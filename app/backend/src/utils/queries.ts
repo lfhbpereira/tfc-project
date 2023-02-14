@@ -39,3 +39,30 @@ export const awayTeams = (
   GROUP BY t.team_name
   ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsFavor DESC, goalsOwn ASC`
 );
+
+export const allTeams = (
+  `SELECT t.team_name AS name,
+  SUM(if((m.home_team_id = t.id AND m.home_team_goals > m.away_team_goals)
+    OR (m.away_team_id = t.id AND m.away_team_goals > m.home_team_goals), 3,
+    if(m.home_team_goals = m.away_team_goals, 1, 0))) AS totalPoints,
+  COUNT(m.id) AS totalGames,
+  SUM(if((m.home_team_id = t.id AND m.home_team_goals > m.away_team_goals)
+    OR (m.away_team_id = t.id AND m.away_team_goals > m.home_team_goals), 1, 0)) AS totalVictories,
+  SUM(if(m.home_team_goals = m.away_team_goals, 1, 0)) AS totalDraws,
+  SUM(if((m.home_team_id = t.id AND m.home_team_goals < m.away_team_goals)
+    OR (m.away_team_id = t.id AND m.away_team_goals < m.home_team_goals), 1, 0)) AS totalLosses,
+  SUM(if(m.home_team_id = t.id, m.home_team_goals, m.away_team_goals)) AS goalsFavor,
+  SUM(if(m.home_team_id = t.id, m.away_team_goals, m.home_team_goals)) AS goalsOwn,
+  SUM(if(m.home_team_id = t.id, m.home_team_goals, m.away_team_goals))
+    - SUM(if(m.home_team_id = t.id, m.away_team_goals, m.home_team_goals)) AS goalsBalance,
+  round(SUM(if((m.home_team_id = t.id AND m.home_team_goals > m.away_team_goals)
+    OR (m.away_team_id = t.id AND m.away_team_goals > m.home_team_goals), 3,
+    if(m.home_team_goals = m.away_team_goals, 1, 0))) / (COUNT(m.id) * 3) * 100, 2) AS efficiency
+  FROM matches AS m
+  INNER JOIN teams AS t
+  ON t.id
+  IN (m.home_team_id, m.away_team_id)
+  WHERE m.in_progress = false
+  GROUP BY t.team_name
+  ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsFavor DESC, goalsOwn ASC`
+);
