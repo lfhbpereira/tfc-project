@@ -17,5 +17,6 @@ export default class LeadeboardRouter {
     this._leaderboardController = new LeaderboardController(this._leaderboardService);
 
     this.router.get('/home', this._leaderboardController.getHomeTeamLeaderboard);
+    this.router.get('/away', this._leaderboardController.getAwayTeamLeaderboard);
   }
 }
