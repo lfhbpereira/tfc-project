@@ -18,5 +18,6 @@ export default class LeadeboardRouter {
 
     this.router.get('/home', this._leaderboardController.getHomeTeamLeaderboard);
     this.router.get('/away', this._leaderboardController.getAwayTeamLeaderboard);
+    this.router.get('/', this._leaderboardController.getAllTeamsLeaderboard);
   }
 }
