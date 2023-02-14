@@ -16,4 +16,10 @@ export default class LeaderboardService implements ILeaderboardService {
 
     return awayTeamLeaderboard;
   }
+
+  public async getAllTeamsLeaderboard(): Promise<ILeaderboard[]> {
+    const allTeamsLeaderboard = await this._leaderboardRepository.getAllTeamsLeaderboard();
+
+    return allTeamsLeaderboard;
+  }
 }
