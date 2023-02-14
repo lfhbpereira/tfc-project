@@ -1,0 +1,5 @@
+import ILeaderboard from '../../interfaces/ILeaderboard';
+
+export default interface ILeaderboardRepository {
+  getHomeTeamLeaderboard(): Promise<ILeaderboard[]>;
+}
