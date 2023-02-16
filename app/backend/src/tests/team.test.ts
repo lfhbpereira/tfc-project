@@ -27,7 +27,7 @@ describe('Test /teams endpoint', () => {
 
 describe('Test /teams/:id endpoint', () => {
   describe('When searching for a team by id', () => {
-    it('should return the 200 status code with the searched team', async () => {
+    it('should return the 200 status code with searched team', async () => {
       sinon.stub(TeamModel, 'findByPk').resolves(team as TeamModel);
 
       const { status, body } = await chai.request(app).get('/teams/1');

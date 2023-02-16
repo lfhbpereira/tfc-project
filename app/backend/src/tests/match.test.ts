@@ -39,7 +39,7 @@ describe('Test /matches endpoint', () => {
   });
 
   describe('When searching for matches in progress', () => {
-    it('should return the 200 status code with the matches in progress', async () => {
+    it('should return the 200 status code with matches in progress', async () => {
       sinon.stub(MatchModel, 'findAll').resolves(matchesInProgress as IMatches[]);
 
       const { status, body } = await chai.request(app).get('/matches?inProgress=true');
@@ -50,7 +50,7 @@ describe('Test /matches endpoint', () => {
   });
 
   describe('When searching for finished matches', () => {
-    it('should return the 200 status code with the finished matches', async () => {
+    it('should return the 200 status code with finished matches', async () => {
       sinon.stub(MatchModel, 'findAll').resolves(finishedMatches as IMatches[]);
 
       const { status, body } = await chai.request(app).get('/matches?inProgress=false');
@@ -61,7 +61,7 @@ describe('Test /matches endpoint', () => {
   });
 
   describe('When registering a new match', () => {
-    it('should return the 201 status code with the new match', async () => {
+    it('should return the 201 status code with new match', async () => {
       sinon.stub(MatchModel, 'create').resolves(newMatchResponse as MatchModel);
 
       const { body: { token } } = await chai.request(app).post('/login').send(login);
