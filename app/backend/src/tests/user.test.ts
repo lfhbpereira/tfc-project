@@ -75,6 +75,8 @@ describe('Test /login endpoint', () => {
 });
 
 describe('Test /login/validate endpoint', () => {
+  afterEach(sinon.restore);
+
   describe('When providing the right token', () => {
     it('should return the 200 status code with user role', async () => {
       const { body: { token } } = await chai.request(app).post('/login').send(login);
@@ -83,6 +85,15 @@ describe('Test /login/validate endpoint', () => {
 
       expect(status).to.equal(200);
       expect(body).to.deep.equal({ role: 'admin' });
+    });
+  });
+
+  describe('When not providing a token', () => {
+    it('should return the 401 status code with an error message', async () => {
+      const { status, body } = await chai.request(app).get('/login/validate');
+
+      expect(status).to.equal(401);
+      expect(body.message).to.equal('Token not found');
     });
   });
 });
